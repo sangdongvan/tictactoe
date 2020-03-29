@@ -1,0 +1,19 @@
+load("//Config:buck_rule_macros.bzl", "static_library", "unit_test")
+
+static_library(
+    name = "SwiftExtension",
+    deps = [
+        "//Carthage:Alamofire"
+    ],
+    tests = [
+        ":SwiftExtension_Tests"
+    ]
+)
+
+unit_test(
+    name = "SwiftExtension_Tests",
+    deps = [
+        "//Carthage:Alamofire",
+        ":SwiftExtension"
+    ]
+)

@@ -1,0 +1,29 @@
+load("//Config:buck_rule_macros.bzl", "static_library")
+
+static_library(
+    name = "PromiseKit",
+    exported_headers = glob([
+        "PromiseKit/**/*.h",
+    ], exclude = [
+        # We are excluding this header because a) it is not public and b) `PromiseKit` does not
+        # consider it to be a source in its `podspec`
+        # https://github.com/mxcl/PromiseKit/blob/a20df65b74b3eec290e524abb9839412542328b6/PromiseKit.podspec#L114
+        "PromiseKit/AnyPromise+Private.h",
+    ]),
+    srcs = glob([
+        "PromiseKit/**/*.m",
+        "PromiseKit/**/*.swift",
+    ], exclude = [
+        # We are excluding the below sources since `PromiseKit` does not consider them sources in its `podspec`
+        # https://github.com/mxcl/PromiseKit/blob/a20df65b74b3eec290e524abb9839412542328b6/PromiseKit.podspec#L114
+        "PromiseKit/Sources/PMKCallVariadicBlock.m",
+        "PromiseKit/Sources/NSMethodSignatureForBlock.m",
+    ]),
+)
+
+static_library(
+    name = "NeedleFoundation",
+    srcs = glob([
+        "NeedleFoundation/Sources/**/*.swift",
+    ]),
+)

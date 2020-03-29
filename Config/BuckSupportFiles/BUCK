@@ -1,0 +1,5 @@
+load("//Config:buck_rule_macros.bzl", "exports_files")
+
+exports_files(
+    files = glob(["**/*"]),
+)

@@ -1,0 +1,6 @@
+module Pods_Superide {
+  umbrella header "Pods-Superide-umbrella.h"
+
+  export *
+  module * { export * }
+}

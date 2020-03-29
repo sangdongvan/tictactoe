@@ -1,0 +1,19 @@
+load("//Config:buck_rule_macros.bzl", "static_library")
+
+static_library(
+    name = "UiExtension",
+    deps = [
+        "//Carthage:RxSwift",
+        "//Carthage:RIBs",
+        "//Carthage:SnapKit",
+        "//Carthage:AloeStackView",
+        ":UiExtensionAssets"
+    ]
+)
+
+apple_asset_catalog(
+    name = "UiExtensionAssets",
+    dirs = [
+        "Resources/Catalog.xcassets"
+    ]
+)

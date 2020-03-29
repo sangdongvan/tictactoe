@@ -1,0 +1,14 @@
+exclude: '^(Pods|Carthage)'
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+      - id: check-merge-conflict
+  - repo: local
+    hooks:
+      - id: swift-format
+        name: Format swift code
+        entry: ./scripts/swift-format.sh
+        language: script
+        exclude: '.gen.swift$'
+        types: [swift]

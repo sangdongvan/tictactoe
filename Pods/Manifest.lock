@@ -1,0 +1,23 @@
+PODS:
+  - NeedleFoundation (0.12.0)
+  - PromiseKit/CoreLocation (6.1.1):
+    - PromiseKit/CorePromise
+  - PromiseKit/CorePromise (6.1.1)
+
+DEPENDENCIES:
+  - NeedleFoundation (= 0.12.0)
+  - PromiseKit/CoreLocation (= 6.1.1)
+  - PromiseKit/CorePromise (= 6.1.1)
+
+SPEC REPOS:
+  trunk:
+    - NeedleFoundation
+    - PromiseKit
+
+SPEC CHECKSUMS:
+  NeedleFoundation: 024253aaa297ffd59ba4a60508812bb8b0d17691
+  PromiseKit: 876f433b87c970f020e04e35dbe68ab21d240498
+
+PODFILE CHECKSUM: 324a299eca76953895d92522bed68a080c8adc18
+
+COCOAPODS: 1.9.1

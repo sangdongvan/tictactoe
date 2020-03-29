@@ -1,0 +1,9 @@
+xcode_workspace_config(
+    name = "AllWorkspace",
+    workspace_name = "All",
+    src_target = "//Apps/TicTacToe:AppBundle",
+    extra_schemes = {
+        "TicTacToeRib_Demo": "//Libraries/TicTacToeRib:TicTacToeRib_DemoWorkspace",
+    },
+    action_config_names = {"profile": "Profile"}
+)

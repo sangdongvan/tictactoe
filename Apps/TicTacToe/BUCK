@@ -1,0 +1,63 @@
+load("//Config:buck_rule_macros.bzl", "application")
+
+apple_asset_catalog(
+    name = "AppAssets",
+    app_icon = "AppIcon",
+    dirs = ["Assets.xcassets"]
+)
+
+application(
+    product_name = "TicTacToe",
+    prebuilt_framework_deps = [
+        "//Carthage:CarthageBuckPlaceholder",
+        "//Carthage:Alamofire",
+        "//Carthage:RxRelay",
+        "//Carthage:RxCocoa",
+        "//Carthage:RxSwift",
+        "//Carthage:RIBs",
+        "//Carthage:AloeStackView",
+        "//Carthage:SnapKit",
+        "//Carthage:RIBsTreeViewerClient",
+    ],
+    deps = [
+        # prebuilt framework dependencies that are imported in the apps
+        "//Carthage:RxRelay",
+        "//Carthage:RxCocoa",
+        "//Carthage:RIBsTreeViewerClient",
+
+        "//Pods:NeedleFoundation",
+        "//Pods:PromiseKit",
+        "//Libraries/SwiftExtension:SwiftExtension",
+        "//Libraries/UiExtension:UiExtension",
+        "//Libraries/RIBsExtension:RIBsExtension",
+        "//Libraries/Models:Models",
+        "//Libraries/TicTacToeRib:TicTacToeRib",
+    ],
+    build_phrase_deps = [
+        ":Hello_World",
+        ":Needle_Gen",
+        ":Bye_World",
+    ],
+    resource_deps = [
+        ":AppAssets"
+    ]
+)
+
+# Setup Needle code generator.
+# https://github.com/uber/needle/blob/master/Sample/MVC/TicTacToe/TicTacToe.xcodeproj/project.pbxproj#L412
+xcode_prebuild_script(
+    name = "Needle_Gen",
+    cmd = '"${REPO_ROOT}/scripts/needle-gen.sh"',
+)
+
+# Defines a Build Phase script that gets executed before the "Compile Sources" step
+xcode_prebuild_script(
+    name = "Hello_World",
+    cmd = '"${REPO_ROOT}/scripts/sample.sh"',
+)
+
+# Defines a Build Phase script that gets executed after the "Compile Sources" step
+xcode_postbuild_script(
+    name = "Bye_World",
+    cmd = 'echo Bye World!',
+)

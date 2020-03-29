@@ -1,0 +1,9 @@
+load("//Config:buck_rule_macros.bzl", "static_library")
+
+static_library(
+    name = "RIBsExtension",
+    deps = [
+        "//Carthage:RxSwift",
+        "//Carthage:RIBs"
+    ]
+)

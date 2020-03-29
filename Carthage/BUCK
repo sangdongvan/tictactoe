@@ -1,0 +1,45 @@
+load("//Config:buck_rule_macros.bzl", "apple_lib", "prebuilt_framework")
+load("//Config:functions.bzl", "get_basename")
+
+# Buck requires at least 1 library per BUCK file
+apple_lib(
+    # Infer name from the path of the package
+    name = get_basename(native.package_name()) + "BuckPlaceholder",
+    srcs = ["//Config/BuckSupportFiles:Empty.swift"],
+)
+
+prebuilt_framework(
+    path = "Build/iOS/Alamofire.framework",
+)
+
+prebuilt_framework(
+    path = "Build/iOS/RxSwift.framework",
+)
+
+prebuilt_framework(
+    path = "Build/iOS/RxRelay.framework",
+)
+
+prebuilt_framework(
+    path = "Build/iOS/RxCocoa.framework",
+)
+
+prebuilt_framework(
+    path = "Build/iOS/RIBs.framework",
+)
+
+prebuilt_framework(
+    path = "Build/iOS/AloeStackView.framework",
+)
+
+prebuilt_framework(
+    path = "Build/iOS/SnapKit.framework",
+)
+
+prebuilt_framework(
+    path = "Build/iOS/RIBsTreeViewerClient.framework",
+)
+
+prebuilt_framework(
+    path = "Build/iOS/SnapshotTesting.framework",
+)

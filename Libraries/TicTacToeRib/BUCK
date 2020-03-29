@@ -1,0 +1,89 @@
+load("//Config:buck_rule_macros.bzl", 
+    "static_library", 
+    "demo", 
+    "unit_test", 
+    "unit_test_with_host_api", 
+    "ui_test"
+)
+
+xcode_prebuild_script(
+    name = "TicTacToeRib_Mockolo",
+    cmd = '#${REPO_ROOT}/tools/mockolo --macro DEBUG -s ${SRCROOT}/Sources -s ${REPO_ROOT}/Carthage/Checkouts/RIBs/ios/RIBs/Classes -d ${SRCROOT}/Sources/Mockolo.gen.swift',
+)
+
+static_library(
+    name = "TicTacToeRib",
+    deps = [
+        # dynamic frameworks
+        "//Carthage:SnapKit",
+        "//Carthage:RxSwift",
+        "//Carthage:RIBs",
+        # 3rd party libraries
+        "//Pods:NeedleFoundation",
+        "//Libraries/Models:Models",
+        "//Libraries/RIBsExtension:RIBsExtension",
+        # test support inject with DEBUG macro
+        ":TicTacToeRib_Mockolo"
+    ],
+    tests = [
+        ":TicTacToeRib_Tests",
+        ":TicTacToeRib_HostTests",
+        ":TicTacToeRib_UITests"
+    ]
+)
+
+unit_test(
+    name = "TicTacToeRib_Tests",
+    deps = [
+        # dynamic frameworks
+        "//Carthage:SnapKit",
+        "//Carthage:RxSwift",
+        "//Carthage:RIBs",
+        # 1st party libraries
+        ":TicTacToeRib",
+    ]
+)
+
+# Demo Workspace
+xcode_workspace_config(
+    name = "TicTacToeRib_DemoWorkspace",
+    visibility = ["PUBLIC"],
+    workspace_name = "TicTacToeRib_Demo",
+    src_target = ":TicTacToeRib_DemoBundle",
+)
+
+# Demo App
+demo(
+    name = "TicTacToeRib_Demo",
+    prebuilt_framework_deps = [
+        "//Carthage:RxSwift",
+        "//Carthage:RIBs",
+    ],
+    deps = [
+        "//Carthage:RxSwift",
+        "//Carthage:RIBs",
+        ":TicTacToeRib",
+    ]
+)
+
+# Test with Host Api
+unit_test_with_host_api(
+    name = "TicTacToeRib_HostTests",
+    test_host_app = ":TicTacToeRib_DemoBundle",
+    deps = [
+        # dynamic frameworks
+        "//Carthage:SnapKit",
+        "//Carthage:RxSwift",
+        "//Carthage:RIBs",
+        "//Carthage:SnapshotTesting",
+
+        # 1st party library
+        ":TicTacToeRib",
+    ]
+)
+
+# UITest
+ui_test(
+    name = "TicTacToeRib_UITests",
+    ui_test_target_app = ":TicTacToeRib_DemoBundle",
+)
